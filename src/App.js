@@ -17,16 +17,20 @@ class App extends React.Component {
         error: undefined
     }
 
+
     gettingWeather = async (e) => {
         var that = this 
         e.preventDefault();
         var city = e.target.elements.city.value;
+        // запрос от фича на статус (200-404)
         let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
 
+        // если статус положительный
         if (response.ok) {
             const api_url = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
             const data = await api_url.json();
 
+            // перевод данных в читаемые
             var temperature = Math.trunc (data.main.temp - 273.15);
             
             var sunrise = new Date(data.sys.sunrise * 1000);
