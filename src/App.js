@@ -21,8 +21,9 @@ class App extends React.Component {
         var that = this 
         e.preventDefault();
         var city = e.target.elements.city.value;
+        let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
 
-        if (city) {
+        if (response.ok) {
             const api_url = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
             const data = await api_url.json();
 
@@ -53,7 +54,7 @@ class App extends React.Component {
                 // description: undefined,
                 error: "Не могу найти такой город"
             });
-        }
+        } 
     };
     
     render() {
