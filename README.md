@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Weather app 
+
+![til](./src/img/Weather_gif.mov)
+
 ## Available Scripts
 
 In the project directory, you can run:
