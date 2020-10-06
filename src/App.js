@@ -16,6 +16,7 @@ class App extends React.Component {
         description: undefined,
         error: undefined
     }
+
     gettingWeather = async (e) => {
         var that = this 
         e.preventDefault();
@@ -25,32 +26,60 @@ class App extends React.Component {
             const api_url = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
             const data = await api_url.json();
 
+            var temperature = Math.trunc (data.main.temp - 273.15);
+            
+            var sunrise = new Date(data.sys.sunrise * 1000);
+            var sunrise_date = sunrise.getHours() + ":" + sunrise.getMinutes();
+            
+            var sunset = new Date(data.sys.sunset * 1000);
+            var sunset_datе = sunset.getHours() + ":" + sunset.getMinutes();
+
             that.setState({
-                temp: data.main.temp,
+                temp: temperature,
                 city: data.name,
                 country: data.sys.country,
-                sunrise: data.sys.sunrise,
-                sunset: data.sys.sunset,
-                description: data.weather[0].description,
-                error: ""
+                sunrise: sunrise_date,
+                sunset: sunset_datе,
+                // description: data.weather[0].description,
+                error: undefined
+            });
+        } else {
+            that.setState({
+                temp: undefined,
+                city: undefined,
+                country: undefined,
+                sunrise: undefined,
+                sunset: undefined,
+                // description: undefined,
+                error: "Не могу найти такой город"
             });
         }
     };
     
     render() {
         return ( 
-            <div>
-                <Info/>
-                <Form weatherMethod = {this.gettingWeather} />
-                <Weather 
-                    temp={this.state.temp}
-                    city={this.state.city}
-                    country={this.state.country}
-                    sunrise={this.state.sunrise}
-                    sunset={this.state.sunset}
-                    description={this.state.description}
-                    error={this.state.error}
-                />
+            <div className="wrapper">
+                <div className="main">
+                    <div className="container>">
+                        <div className="row">
+                            <div className="col-sm-5 info">
+                                <Info/>
+                            </div>
+                            <div className="col-sm-7 form">
+                                <Form weatherMethod = {this.gettingWeather} />
+                                <Weather 
+                                    temp={this.state.temp}
+                                    city={this.state.city}
+                                    country={this.state.country}
+                                    sunrise={this.state.sunrise}
+                                    sunset={this.state.sunset}
+                                    description={this.state.description}
+                                    error={this.state.error}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
