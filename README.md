@@ -2,7 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Weather app 
 
-![til](./src/img/Weather_gif.mov)
+![Запись экрана 2020-10-06 в 19 14 33](https://user-images.githubusercontent.com/49586977/95230968-3d3cf680-080b-11eb-9e7b-caf7f516e082.gif)
+
 
 ## Available Scripts
 
